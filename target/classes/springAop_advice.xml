@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDao" class="com.spj.springaop.advice.dao.UserDao" />
+
+    <bean id="MyAspect" class="com.spj.springaop.advice.myAspect.MyAspect" />
+
+    <bean id="userDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean" >
+        <property name="target" ref="userDao" />
+        <property name="interceptorNames" >
+            <array>
+                <value>MyAspect</value>
+            </array>
+        </property>
+    </bean>
+</beans>

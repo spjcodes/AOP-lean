@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 代理监控对象 -->
+    <bean id="userDao" class="com.spj.springaop.advice.dao.UserDao" />
+    <!--扫描注解-->
+    <context:component-scan base-package="com.spj.aspectJ.annotationWay" />
+    <!--aspectJ 自动代理，开启基于注解式的aspectJ开发支持-->
+    <aop:aspectj-autoproxy />
+
+</beans>

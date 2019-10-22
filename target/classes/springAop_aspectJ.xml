@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 代理监控对象 -->
+    <bean id="userDao" class="com.spj.springaop.advice.dao.UserDao" />
+   <!-- 切面 -->
+    <bean id="myAspect" class="com.spj.aspectJ.xmlWay.MyAspect" />
+    <!--aop编程-->
+    <aop:config >
+        <!--配置切面-->
+        <aop:aspect ref="myAspect">
+            <!--配置切入点-->
+            <aop:pointcut id="myPointCut"
+                          expression="execution(* com.spj.springaop.advice.dao.UserDao.*(..))" />
+            <!--关联通知和切入点-->
+            <aop:after method="myFinally" pointcut-ref="myPointCut" />
+            <aop:after-returning method="myAfterRuturning" pointcut-ref="myPointCut" />
+            <aop:around method="myAround"
+                        pointcut="execution(public * com.spj.springaop.advice.dao.UserDao.deleteUser(..))" />
+            <aop:before method="myBeforeAdvice" pointcut-ref="myPointCut" />
+            <aop:after-throwing method="myAfterThrowing"
+                                pointcut="execution(* com.spj.springaop.advice.dao.UserDao.modleZero(..))" throwing="e"  />
+        </aop:aspect>
+
+
+    </aop:config>
+
+</beans>

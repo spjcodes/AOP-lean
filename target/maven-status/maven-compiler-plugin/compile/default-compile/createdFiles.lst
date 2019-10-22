@@ -1,0 +1,4 @@
+com\spj\springaop\advisor\TestMethod.class
+com\spj\springaop\advice\myAspect\MyAspect.class
+com\spj\springaop\advice\TestMethod.class
+com\spj\springaop\advice\dao\UserDao.class

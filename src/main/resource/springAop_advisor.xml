@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 代理监控对象 -->
+    <bean id="userDao" class="com.spj.springaop.advice.dao.UserDao" />
+    <!--切面/次要业务-->
+    <bean id="myAspect" class="com.spj.springaop.advice.myAspect.MyAspect" />
+    <!-- 类过滤器 -->
+    <bean id="classFilter" class="com.spj.springaop.advisor.utils.ClassFilter" />
+    <!-- 方法匹配器 -->
+    <bean id="methdoMatcher" class="com.spj.springaop.advisor.utils.MethodMatcher" />
+
+    <!-- 自定义切入点 -->
+    <bean id="myPointCut" class="com.spj.springaop.advisor.pointCut.MyPointCut" >
+        <property name="classFilter" ref="classFilter" />
+        <property name="methodMatcher" ref="methdoMatcher" />
+    </bean>
+
+    <!-- 自定义顾问 -->
+    <bean id="myAdvisor" class="com.spj.springaop.advisor.myAdvisor.MyAdvisor">
+        <property name="pointcut" ref="myPointCut" />
+        <property name="advice" ref="myAspect" />
+    </bean>
+    <!--spring代理工厂-->
+    <bean id="userDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean" >
+        <property name="target" ref="userDao" />
+        <property name="interceptorNames" >
+            <array>
+                <value>myAdvisor</value>
+            </array>
+        </property>
+    </bean>
+</beans>
